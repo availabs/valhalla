@@ -1105,12 +1105,10 @@ int main(int argc, char** argv) {
   if (argc < 2) {
     std::cerr
         << "Usage: " << std::string(argv[0])
-        << " valhalla_config transit_land_url per_page [target_directory] [bounding_box]"
-           "[transit_land_api_key] [import_level] [feed_onestop_id] [import_level] [feed_onestop_id]"
+        << " valhalla_config transit_land_url per_page [target_directory] [feed_onestop_id]"
         << std::endl;
     std::cerr << "Sample: " << std::string(argv[0])
-              << " conf/valhalla.json http://transit.land/ 1000 ./transit_tiles "
-                 "-122.469,37.502,-121.78,38.018 transitland-YOUR_KEY_SUFFIX 4 f-9q9-bart"
+              << " conf/valhalla.json http://transit.land/ 1000 ./transit_tiles f-dre-cdta"
               << std::endl;
     return 1;
   }
@@ -1126,25 +1124,25 @@ int main(int argc, char** argv) {
     pt.get_child("mjolnir").erase("transit_dir");
     pt.add("mjolnir.transit_dir", std::string(argv[4]));
   }
-  if (argc > 5) {
-    pt.get_child("mjolnir").erase("transit_bounding_box");
-    pt.add("mjolnir.transit_bounding_box", std::string(argv[5]));
-  }
-  if (argc > 6) {
-    pt.erase("api_key");
-    pt.add("api_key", std::string(argv[6]));
-  }
-  if (argc > 7) {
-    pt.erase("import_level");
-    pt.add("import_level", std::string(argv[7]));
-  }
+//  if (argc > 5) {
+//    pt.get_child("mjolnir").erase("transit_bounding_box");
+//    pt.add("mjolnir.transit_bounding_box", std::string(argv[5]));
+//  }
+//  if (argc > 6) {
+//    pt.erase("api_key");
+//    pt.add("api_key", std::string(argv[6]));
+//  }
+//  if (argc > 7) {
+//    pt.erase("import_level");
+//    pt.add("import_level", std::string(argv[7]));
+//  }
 
   // yes we want to curl
   curl_global_init(CURL_GLOBAL_DEFAULT);
 
   std::string feed;
-  if (argc > 8) {
-    feed = std::string(argv[8]);
+  if (argc > 5) {
+    feed = std::string(argv[5]);
   }
 
   // go get information about what transit tiles we should be fetching
